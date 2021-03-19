@@ -62,7 +62,7 @@ f, axarr = plt.subplots(2,5)
 for i in range(x-10,x-5):
     for j in range(2):
         guess = 'Guess = ' + str(np.argmax(predictions[i+j*5]))
-        axarr[j,i%5].imshow(x_test[i+j*5],cmap=plt.cm.binary)
+        axarr[j,i%5].imshow(x_test[i+j*5],cmap='gray')
         axarr[j,i%5].set_title(guess,fontsize=20) #Machine guess in subtitle
         axarr[j,i%5].tick_params(
         axis='both',          # Remove ticks and labels

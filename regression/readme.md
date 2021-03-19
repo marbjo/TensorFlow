@@ -1,8 +1,11 @@
-#Linear and logistic regression, using ML.
+# Linear and logistic regression, using ML.
 
-###Linear regression
+### Linear regression
+**linreg.py**
 ![Screenshot](linreg.png)
 
-###Logistic regression
-Coming soon &trade;
-<!-- ![Screenshot](logreg.png) -->
+### Logistic regression
+**logreg.py**
+![Screenshot](logreg.png)
+
+## More coming soon&trade;
