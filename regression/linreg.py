@@ -1,33 +1,39 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+from numpy.random import default_rng
 
-rng = np.random
+#Creating "random increasing" data
+seed = 1
+rng = default_rng(seed)
+X = rng.uniform(low=0, high=10, size=15)
+Y = rng.uniform(low=0, high=5, size=15)
+X = np.sort(X)
+Y = X + Y
 
-# Parameters.
+# Learning parameters
 learning_rate = 0.01
 training_steps = 1000
-display_step = 50
 
-# Training Data.
-X = np.array([3.3,4.4,5.5,6.71,6.93,4.168,9.779,6.182,7.59,2.167,
-              7.042,10.791,5.313,7.997,5.654,9.27,3.1])
-Y = np.array([1.7,2.76,2.09,3.19,1.694,1.573,3.366,2.596,2.53,1.221,
-              2.827,3.465,1.65,2.904,2.42,2.94,1.3])
+# Only for visuals
+display_step = 100
+plt.style.use('bmh') #For more colors
 
-# Weight and Bias, initialized randomly.
-W = tf.Variable(rng.randn(), name="weight")
-b = tf.Variable(rng.randn(), name="bias")
+# Weight and Bias. Initial guess intentionally bad to show progress.
+# A more natural choice would be to initialize with rng.standard_normal()
+W = tf.Variable(10., name="weight")
+b = tf.Variable(-20., name="bias")
 
-# Linear regression (Wx + b).
+
+# Linear regression
 def linear_regression(x):
-    return W * x + b
+    return W*x + b
 
-# Mean square error.
+# Mean square error
 def mean_square(y_pred, y_true):
     return tf.reduce_mean(tf.square(y_pred - y_true))
 
-# Stochastic Gradient Descent Optimizer.
+# Stochastic Gradient Descent Optimizer
 optimizer = tf.optimizers.SGD(learning_rate)
 
 # Optimization process.
@@ -52,9 +58,11 @@ for step in range(1, training_steps + 1):
         pred = linear_regression(X)
         loss = mean_square(pred, Y)
         print("step: %i, loss: %f, W: %f, b: %f" % (step, loss, W.numpy(), b.numpy()))
+        plt.plot(X, np.array(W * X + b), '--', label=str(step))
 
 # Graphic display
-plt.plot(X, Y, 'ro', label='Original data')
-plt.plot(X, np.array(W * X + b), label='Fitted line')
+plt.plot(X, Y, 'ro', markersize=10, alpha=0.5, label='Noisy data')
+plt.plot(X, np.array(W * X + b), label='Final fit')
+plt.title('Linear regression Wx+b, with 1000 learning steps. Each 100th step of tuning W and b is shown.')
 plt.legend()
 plt.show()

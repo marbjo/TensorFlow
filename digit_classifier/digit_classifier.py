@@ -12,7 +12,7 @@ x_train, x_test = x_train / 255.0, x_test / 255.0
 model = tf.keras.models.Sequential([
   tf.keras.layers.Flatten(input_shape=(28, 28)), #Input layer, normalizes (Flatten)
   tf.keras.layers.Dense(128, activation='relu'),
-  tf.keras.layers.Dense(128, activation='relu'), #Two layers (probably overkill)
+  #tf.keras.layers.Dense(128, activation='relu'), #Two layers (probably overkill)
   tf.keras.layers.Dropout(0.2), #Dropout layer prevents overfitting
   tf.keras.layers.Dense(10) #Output layer, 10 nodes (10 numbers, 0-9)
 ])
@@ -52,7 +52,7 @@ predictions = new_model.predict(x_test)
 
 #GRAPHICAL VIEW
 
-x = 10
+x = 20
 """
 #x controls which blocks of 10 to show. If you want the 10 first(0-9),
 let x=10. If you want the next 10 (10-19), let x=20, and so on.
@@ -72,6 +72,7 @@ for i in range(x-10,x-5):
         labelleft=False,
         labelbottom=False)
 
-plt.suptitle('Machine guesses on written numbers')
+plt.suptitle('Machine guesses on written numbers', fontsize=40)
 plt.tight_layout()
+#plt.savefig('guess.png',dpi=400)
 plt.show()
